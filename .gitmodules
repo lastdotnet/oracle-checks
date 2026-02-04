@@ -5,4 +5,4 @@
 [submodule "oracle-sdk"]
 	path = oracle-sdk
 	url = https://github.com/lastdotnet/oracle-sdk.git
-	branch = feat/add-veda-account-oracle
+	branch = main
