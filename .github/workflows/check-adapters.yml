@@ -71,25 +71,17 @@ jobs:
             git push origin HEAD:master
           fi
 
-      # Upload to S3 - master goes to root, other branches get their own folder
-      - name: Sync data to S3
-        if: success() && startsWith(github.ref, 'refs/heads/')
-        run: |
-          # Extract branch name from refs/heads/branch-name
-          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+      - name: Configure AWS credentials
+        if: success() && github.ref == 'refs/heads/master'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-          if [ "$BRANCH_NAME" = "master" ]; then
-            # Master branch uploads to bucket root
-            aws s3 sync data/ "s3://${{ secrets.AWS_S3_BUCKET }}/" --delete
-          else
-            # Other branches get their own folder (sanitize branch name: replace / with -)
-            SAFE_BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/\//-/g')
-            aws s3 sync data/ "s3://${{ secrets.AWS_S3_BUCKET }}/${SAFE_BRANCH_NAME}/" --delete
-          fi
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
+      - name: Sync data to S3
+        if: success() && github.ref == 'refs/heads/master'
+        run: aws s3 sync data/ "s3://${{ secrets.AWS_S3_BUCKET }}/" --delete
 
       # 🆕 Notify Slack if the workflow fails
       - name: Notify Slack on failure
