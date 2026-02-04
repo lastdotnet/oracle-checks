@@ -19,3 +19,4 @@ src/test/
 
 # Environment variables
 .env
+oracle-sdk/
