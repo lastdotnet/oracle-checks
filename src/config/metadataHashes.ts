@@ -47,6 +47,7 @@ export const metadataHashes: Record<string, string[]> = {
     "0x1220f246a4266166da46653e2028acf10ef9a9ddb00fb781aed7daa0b77c51379c09",
     "0x12209db9ab00545537efd012d6d5b5cc23ff14a60e28abf93b84abc92c6d22160f96",
     "0x122074fdfdb3b8069cb8858ed412fa5f27c7d92c64a57f0d1f51d2d764c7c85473d2",
+    "0x12203ba33586f78e039d2580115ea19f10ba71f5c4d580425d175eacbb5cdb536478",
   ],
   RedstoneCoreOracle: ["0x1220b91ac3ca26a68bf539f1d0b96b675c6e329e73fa0afe944f154daa5bcdb0e272"],
   CrossAdapter: [
