@@ -3,10 +3,9 @@ name: Check Adapters
 permissions:
   contents: write
 
+# CI fully disabled — no automatic triggers.
+# Can only be started manually via the Actions tab (workflow_dispatch).
 on:
-  push:
-    branches:
-      - "**" # Run on all branches
   workflow_dispatch:
 
 jobs:
