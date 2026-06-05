@@ -7,9 +7,6 @@ on:
   push:
     branches:
       - "**" # Run on all branches
-  schedule:
-    # Runs every 1 hour (schedule always runs on default branch, i.e. master)
-    - cron: "0 */1 * * *"
   workflow_dispatch:
 
 jobs:
